@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { ImageUploaderText } from '@/constant/components.constant';
 
 interface ImageUploaderProps {
   shape?: 'rectangle' | 'circle';
@@ -36,11 +37,11 @@ export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
 
   const isCircle = shape === 'circle';
   const buttonClassName = isCircle
-    ? `mx-auto flex h-48 w-48 cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-full transition focus:outline-none focus:ring-2 focus:ring-sky-300/90 ${
-        previewUrl ? '' : 'border-2 border-dashed border-sky-400/80 bg-gray-400 hover:bg-gray-500'
+    ? `mx-auto flex h-48 w-48 cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-full transition focus:outline-none focus:ring-2 focus:ring-miku ${
+        previewUrl ? '' : 'border-2 border-dashed border-miku bg-gray-400 hover:bg-gray-500'
       }`
-    : `mx-auto flex aspect-video w-full max-w-3xl cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-xl transition focus:outline-none focus:ring-2 focus:ring-sky-300/90 ${
-        previewUrl ? '' : 'border-2 border-dashed border-sky-400/80 bg-gray-400 hover:bg-gray-500'
+    : `mx-auto flex aspect-video w-full max-w-3xl cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-xl transition focus:outline-none focus:ring-2 focus:ring-miku ${
+        previewUrl ? '' : 'border-2 border-dashed border-miku bg-gray-400 hover:bg-gray-500'
       }`;
 
   return (
@@ -49,9 +50,9 @@ export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
 
       <button type="button" onClick={openFileDialog} className={buttonClassName}>
         {previewUrl ? (
-          <img src={previewUrl} alt="選択した画像" className="h-full w-full object-cover" />
+          <img src={previewUrl} alt={ImageUploaderText['selected-alt']} className="h-full w-full object-cover" />
         ) : (
-          <span className="text-6xl font-bold leading-none text-sky-200">+</span>
+          <span className="text-6xl font-bold leading-none text-miku">+</span>
         )}
       </button>
     </>
