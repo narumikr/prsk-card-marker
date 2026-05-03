@@ -1,0 +1,25 @@
+{
+  // 保存時にアクションを実行する設定
+  "editor.codeActionsOnSave": {
+    // インポートのソートを自動で行う
+    "source.organizeImports.biome": "always",
+    // 保存時にフォーマッタやリンターの自動修正を実行
+    "source.fixAll.biome": "always"
+  },
+
+  // 保存時にフォーマットを実行する
+  "editor.formatOnSave": true,
+
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "actions_get",
+        "get_job_logs",
+        "assign_copilot_to_issue",
+        "request_copilot_review",
+        "get_repository_tree",
+        "add_issue_comment",
+        "get_label",
+        "issue_read",
+        "issue_write",
+        "list_issue_types",
+        "list_issues",
+        "search_issues",
+        "sub_issue_write",
+        "projects_get",
+        "projects_list",
+        "projects_write",
+        "add_comment_to_pending_review",
+        "add_reply_to_pull_request_comment",
+        "list_pull_requests",
+        "pull_request_read",
+        "pull_request_review_write",
+        "search_pull_requests",
+        "get_commit",
+        "list_branches",
+        "list_commits"
+      ]
+    },
+    "drawio": {
+      "command": "npx",
+      "args": ["-y", "@drawio/mcp"],
+      "disabled": true
+    }
+  }
+}
