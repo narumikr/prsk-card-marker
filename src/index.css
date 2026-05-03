@@ -1,1 +1,39 @@
 @import 'tailwindcss';
+
+@theme {
+  /* Character */
+  --color-miku: #33ccba;
+  --color-rin: #ffcc10;
+  --color-len: #feee10;
+  --color-luka: #ffbbcc;
+  --color-meiko: #dd4544;
+  --color-kaito: #3367cc;
+  --color-ichika: #33aaee;
+  --color-saki: #ffc800;
+  --color-honami: #ee6666;
+  --color-shiho: #bbdd22;
+  --color-minori: #ffc096;
+  --color-haruka: #99ccff;
+  --color-airi: #ffaacc;
+  --color-shizuku: #6be6cd;
+  --color-kohane: #ff6699;
+  --color-an: #00bbdd;
+  --color-akito: #ff7722;
+  --color-toya: #0077dd;
+  --color-tsukasa: #ffbb00;
+  --color-emu: #ff66bb;
+  --color-nene: #33dd99;
+  --color-rui: #bb88ee;
+  --color-kanade: #bb6688;
+  --color-mafuyu: #8888cc;
+  --color-ena: #ccaa88;
+  --color-mizuki: #ddaacc;
+
+  /* Unit */
+  --color-virtualsinger: #f5f5f7;
+  --color-leoneed: #4455dd;
+  --color-moremorejump: #88dd44;
+  --color-vividbadsquad: #ee1166;
+  --color-wonderlandsshowtime: #ff9900;
+  --color-nightcode: #884499;
+}

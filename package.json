@@ -18,18 +18,20 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@naru/untitled-ui-library": "github:Narumikr/Untitled#release/untitled",
+    "html-to-image": "^1.11.13",
     "react": "^19.2.5",
-    "react-dom": "^19.2.4",
+    "react-dom": "^19.2.5",
     "react-router-dom": "^7.13.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.13",
-    "husky": "^9.1.7",
     "@tailwindcss/vite": "^4.2.4",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.3.0",
+    "husky": "^9.1.7",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.3",
     "vite": "^8.0.3"
