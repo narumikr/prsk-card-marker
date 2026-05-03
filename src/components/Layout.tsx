@@ -1,5 +1,6 @@
-import { SekaiBackground, SideMenu } from '@naru/untitled-ui-library';
+import { SekaiBackground } from '@naru/untitled-ui-library';
 import { useState } from 'react';
+import { SideMenu } from '@/components/organisms/SideMenu';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -11,9 +12,7 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <SekaiBackground bgOpacity={0.5} />
-      <SideMenu open={isOpen} onClick={() => setIsOpen((prev) => !prev)}>
-        <p>メニュー</p>
-      </SideMenu>
+      <SideMenu isOpen={isOpen} onClick={() => setIsOpen((prev) => !prev)} />
       <div
         className={`transition-[margin-left,width] duration-300 ease-out ${isOpen ? 'ml-62.5 w-[calc(100vw-250px)]' : 'ml-15 w-[calc(100vw-60px)]'}`}>
         {children}

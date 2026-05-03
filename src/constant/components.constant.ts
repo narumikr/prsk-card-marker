@@ -13,6 +13,13 @@ export const TextAreaText = {
 } as const;
 
 /**
+ * @description Dropdownのテキスト定数
+ */
+export const DropdownText = {
+  placeholder: '選択してください',
+} as const;
+
+/**
  * @description Galleryのテキスト定数
  */
 export const GalleryText = {
