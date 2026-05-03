@@ -33,6 +33,7 @@ export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
 
     const nextUrl = URL.createObjectURL(file);
     setPreviewUrl(nextUrl);
+    event.target.value = '';
   };
 
   const isCircle = shape === 'circle';
