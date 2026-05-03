@@ -10,7 +10,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <SekaiBackground bgOpacity={0.2} />
+      <SekaiBackground bgOpacity={0.5} />
       <SideMenu open={isOpen} onClick={() => setIsOpen((prev) => !prev)}>
         <p>メニュー</p>
       </SideMenu>

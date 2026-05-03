@@ -6,6 +6,13 @@ export const ImageUploaderText = {
 } as const;
 
 /**
+ * @description TextAreaのテキスト定数
+ */
+export const TextAreaText = {
+  title: 'フリースペース',
+} as const;
+
+/**
  * @description Galleryのテキスト定数
  */
 export const GalleryText = {
