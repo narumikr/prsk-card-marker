@@ -1,5 +1,7 @@
-import { SideMenu as SekaiSideMenu } from '@naru/untitled-ui-library';
+import { type ColorsSekaiKey, SideMenu as SekaiSideMenu, useCreateSekai } from '@naru/untitled-ui-library';
 import { Dropdown } from '@/components/molecules/Dropdown';
+import { SideMenuText } from '@/constant/components.constant';
+import { OshiDropdownItem } from '@/constant/sidemenu.constants';
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -7,16 +9,15 @@ interface SideMenuProps {
 }
 
 export const SideMenu = ({ isOpen, onClick }: SideMenuProps) => {
+  const { switchSekaiColor } = useCreateSekai();
+
+  const handleSwitchSekai = (value: string) => {
+    switchSekaiColor?.(value as ColorsSekaiKey);
+  };
+
   return (
     <SekaiSideMenu open={isOpen} onClick={onClick}>
-      <Dropdown
-        title="Menu"
-        options={[
-          { label: 'Option 1', value: 'option1' },
-          { label: 'Option 2', value: 'option2' },
-          { label: 'Option 3', value: 'option3' },
-        ]}
-      />
+      <Dropdown title={SideMenuText.sekaiTheme} options={OshiDropdownItem} onSelect={handleSwitchSekai} />
     </SekaiSideMenu>
   );
 };

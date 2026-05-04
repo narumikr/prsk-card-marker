@@ -25,3 +25,10 @@ export const DropdownText = {
 export const GalleryText = {
   title: 'ギャラリー',
 } as const;
+
+/**
+ * @description SideMenuのテキスト定数
+ */
+export const SideMenuText = {
+  sekaiTheme: 'セカイテーマ',
+} as const;
