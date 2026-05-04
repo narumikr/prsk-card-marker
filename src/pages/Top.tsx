@@ -15,6 +15,7 @@ export function Top() {
         width: CARD_WIDTH,
         height: CARD_HEIGHT,
         pixelRatio: 2,
+        skipFonts: true,
       });
       const link = document.createElement('a');
       link.download = TOP_PAGE_TEXT.profileFileName;
