@@ -13,8 +13,22 @@ export const TextAreaText = {
 } as const;
 
 /**
+ * @description Dropdownのテキスト定数
+ */
+export const DropdownText = {
+  placeholder: '選択してください',
+} as const;
+
+/**
  * @description Galleryのテキスト定数
  */
 export const GalleryText = {
   title: 'ギャラリー',
+} as const;
+
+/**
+ * @description SideMenuのテキスト定数
+ */
+export const SideMenuText = {
+  sekaiTheme: 'セカイテーマ',
 } as const;

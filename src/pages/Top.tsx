@@ -5,9 +5,11 @@ import { InputForm } from '@/components/atoms/InputForm';
 import { TextArea } from '@/components/atoms/TextArea';
 import { Gallery } from '@/components/molecules/Gallery';
 import { TOP_PAGE_TEXT } from '@/constant/pages.constant';
+import { useSekaiColor } from '@/hooks/useSekaiColor';
 
 export function Top() {
   const profileRef = useRef<HTMLDivElement>(null);
+  const { border } = useSekaiColor();
 
   const handleDownload = async () => {
     if (!profileRef.current) return;
@@ -24,7 +26,7 @@ export function Top() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 px-6">
-      <div ref={profileRef} style={{ width: 960, height: 540 }} className="bg-white border border-miku p-4">
+      <div ref={profileRef} style={{ width: 960, height: 540 }} className={`bg-white border ${border} p-4`}>
         <p className="text-2xl font-bold">プロセカ自己紹介カード</p>
         <div className="flex gap-4">
           <div style={{ width: 400 }}>
