@@ -14,7 +14,7 @@ export function App() {
 
   return (
     <BrowserRouter>
-      <YourSekaiProvider sekaiTheme={theme}>
+      <YourSekaiProvider sekaiTheme={theme} options={{ disableStoreSekai: true }}>
         <Layout>
           <Routes>
             <Route path="/" element={<Top />} />

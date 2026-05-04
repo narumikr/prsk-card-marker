@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { DropdownText } from '@/constant/components.constant';
+import { useSekaiColor } from '@/hooks/useSekaiColor';
 
 const ESTIMATED_MENU_HEIGHT = 240;
 
@@ -16,6 +17,7 @@ interface DropdownProps {
 }
 
 export const Dropdown = ({ title, options, onSelect }: DropdownProps) => {
+  const { border, ring } = useSekaiColor();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<DropdownOption | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -60,7 +62,7 @@ export const Dropdown = ({ title, options, onSelect }: DropdownProps) => {
         ref={buttonRef}
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="mt-2 w-full rounded border border-miku bg-white px-3 py-2 text-left font-bold text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-miku">
+        className={`mt-2 w-full rounded border ${border} bg-white px-3 py-2 text-left font-bold text-black focus:outline-none focus-visible:ring-2 ${ring}`}>
         {selectedOption?.label ?? DropdownText.placeholder}
       </button>
 
@@ -69,7 +71,7 @@ export const Dropdown = ({ title, options, onSelect }: DropdownProps) => {
           <ul
             ref={menuRef}
             style={getMenuStyle()}
-            className="z-9999 max-h-60 overflow-y-auto rounded border border-miku bg-white text-black shadow-lg">
+            className={`z-9999 max-h-60 overflow-y-auto rounded border ${border} bg-white text-black shadow-lg`}>
             {options.map((option) => (
               <li key={option.value}>
                 <button
