@@ -82,7 +82,7 @@ export const Dropdown = ({ title, options, onSelect }: DropdownProps) => {
           <ul
             ref={menuRef}
             style={menuPosition}
-            className={`z-[9999] max-h-60 overflow-y-auto rounded border ${border} bg-white text-black shadow-lg`}>
+            className={`z-9999 max-h-60 overflow-y-auto rounded border ${border} bg-white text-black shadow-lg`}>
             {options.map((option) => (
               <li key={option.value}>
                 <button

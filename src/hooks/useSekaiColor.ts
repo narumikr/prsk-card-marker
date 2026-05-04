@@ -41,5 +41,5 @@ const SEKAI_COLOR_CLASSES: Record<ColorsSekaiKey, { text: string; border: string
 
 export const useSekaiColor = () => {
   const { sekaiTheme } = useCreateSekai();
-  return SEKAI_COLOR_CLASSES[sekaiTheme.palette.sekai];
+  return SEKAI_COLOR_CLASSES[sekaiTheme.palette.sekai] || SEKAI_COLOR_CLASSES.Miku;
 };
