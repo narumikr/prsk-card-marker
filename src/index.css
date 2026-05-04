@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+.content-font-apply * {
+  font-family: var(--content-font);
+}
+
 @theme {
   /* Character */
   --color-miku: #33ccba;

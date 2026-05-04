@@ -1,7 +1,9 @@
+import type { ColorsSekaiKey } from '@naru/untitled-ui-library';
+
 /**
  * 推し選択Dropdownアイテム
  */
-export const OshiDropdownItem = [
+export const OshiDropdownItem: { label: string; value: ColorsSekaiKey }[] = [
   { label: '初音ミク', value: 'Miku' },
   { label: '鏡音リン', value: 'Rin' },
   { label: '鏡音レン', value: 'Len' },
@@ -34,4 +36,24 @@ export const OshiDropdownItem = [
   { label: 'Vivid BAD SQUAD', value: 'Vividbadsquad' },
   { label: 'ワンダーランズ×ショウタイム', value: 'Wonderlandsshowtime' },
   { label: '25時、ナイトコードで。', value: 'Nightcode' },
+];
+
+/**
+ * 文字フォント
+ */
+export const FontFamily = [
+  // デフォルト
+  { label: 'Montserrat', value: 'Montserrat, sans-serif' },
+  // 一般的
+  { label: 'Noto Sans JP', value: 'Noto Sans JP, sans-serif' },
+  { label: 'Roboto', value: 'Roboto, sans-serif' },
+  { label: 'Sawarabi Gothic', value: 'Sawarabi Gothic, sans-serif' },
+  // 可愛い系
+  { label: 'Yomogi', value: 'Yomogi, sans-serif' },
+  { label: 'Shantell Sans', value: 'Shantell Sans, sans-serif' },
+  // かっこいい系
+  { label: 'Zen Kurenaido', value: 'Zen Kurenaido, sans-serif' },
+  { label: 'Space Mono', value: 'Space Mono, monospace' },
+  // その他
+  { label: 'Sawarabi Mincho', value: 'Sawarabi Mincho, serif' },
 ];

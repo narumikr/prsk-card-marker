@@ -31,4 +31,5 @@ export const GalleryText = {
  */
 export const SideMenuText = {
   sekaiTheme: 'セカイテーマ',
+  fontFamily: '文字フォント',
 } as const;
