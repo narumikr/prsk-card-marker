@@ -27,7 +27,7 @@ export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
       }
     };
     reader.onerror = () => {
-      console.error(ImageUploaderText.imageReadErrorLog);
+      console.error(ImageUploaderText.imageReadErrorLog, reader.error);
     };
     reader.readAsDataURL(file);
     event.target.value = '';
