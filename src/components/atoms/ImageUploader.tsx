@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { ImageUploaderText } from '@/constant/components.constant';
 import { useSekaiColor } from '@/hooks/useSekaiColor';
 
@@ -10,14 +10,6 @@ export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  useEffect(() => {
-    return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
-
   const openFileDialog = () => {
     inputRef.current?.click();
   };
@@ -28,12 +20,13 @@ export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
       return;
     }
 
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl);
-    }
-
-    const nextUrl = URL.createObjectURL(file);
-    setPreviewUrl(nextUrl);
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        setPreviewUrl(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
     event.target.value = '';
   };
 
