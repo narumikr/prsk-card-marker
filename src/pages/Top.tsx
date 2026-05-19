@@ -9,14 +9,36 @@ export function Top() {
 
   const handleDownload = async () => {
     if (!profileRef.current) return;
+
+    const el = profileRef.current;
+
+    // DOM上の全画像が読み込み完了するまで待つ
+    const imgs = Array.from(el.querySelectorAll<HTMLImageElement>('img'));
+    await Promise.all(
+      imgs
+        .filter((img) => !img.complete)
+        .map(
+          (img) =>
+            new Promise<void>((resolve) => {
+              img.onload = () => resolve();
+              img.onerror = () => resolve();
+            }),
+        ),
+    );
+
+    const options = {
+      style: { transform: 'none', transformOrigin: 'top left' },
+      width: CARD_WIDTH,
+      height: CARD_HEIGHT,
+      pixelRatio: 2,
+      skipFonts: true,
+    };
+
     try {
-      const dataUrl = await toPng(profileRef.current, {
-        style: { transform: 'none', transformOrigin: 'top left' },
-        width: CARD_WIDTH,
-        height: CARD_HEIGHT,
-        pixelRatio: 2,
-        skipFonts: true,
-      });
+      // 1回目: html-to-image内部のSVGクローンに画像をキャッシュさせる
+      await toPng(el, options);
+      // 2回目: キャッシュ済みの状態で確実にキャプチャ
+      const dataUrl = await toPng(el, options);
       const link = document.createElement('a');
       link.download = TOP_PAGE_TEXT.profileFileName;
       link.href = dataUrl;
