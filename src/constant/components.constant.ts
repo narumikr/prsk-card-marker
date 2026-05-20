@@ -3,6 +3,7 @@
  */
 export const ImageUploaderText = {
   selectedAlt: '選択した画像',
+  imageReadErrorLog: '画像の読み込みに失敗しました',
 } as const;
 
 /**
