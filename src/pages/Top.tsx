@@ -20,8 +20,8 @@ export function Top() {
         .map(
           (img) =>
             new Promise<void>((resolve) => {
-              img.onload = () => resolve();
-              img.onerror = () => resolve();
+              img.addEventListener('load', () => resolve(), { once: true });
+              img.addEventListener('error', () => resolve(), { once: true });
             }),
         ),
     );
