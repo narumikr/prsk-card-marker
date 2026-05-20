@@ -3,9 +3,11 @@ import { toPng } from 'html-to-image';
 import { useRef } from 'react';
 import { BasicIntroductionCard, CARD_HEIGHT, CARD_WIDTH } from '@/components/templates/BasicIntroductionCard';
 import { TOP_PAGE_TEXT } from '@/constant/pages.constant';
+import { useCardType } from '@/context/CardTypeContext';
 
 export function Top() {
   const profileRef = useRef<HTMLDivElement>(null);
+  const { cardType } = useCardType();
 
   const handleDownload = async () => {
     if (!profileRef.current) return;
@@ -51,7 +53,7 @@ export function Top() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 px-6">
-      <BasicIntroductionCard ref={profileRef} />
+      {cardType === 'basic' && <BasicIntroductionCard ref={profileRef} />}
       <BasicButton type="button" onClick={handleDownload}>
         {TOP_PAGE_TEXT.saveImageButtonLabel}
       </BasicButton>
