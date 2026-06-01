@@ -41,7 +41,10 @@ export const OshiDropdownItem: { label: string; value: ColorsSekaiKey }[] = [
 /**
  * カード種類
  */
-export const CardTypeDropdownItem = [{ label: 'ベースプロフィール', value: 'basic' }];
+export const CardTypeDropdownItem = [
+  { label: 'ベースプロフィール', value: 'basic' },
+  { label: '推しを見て！', value: 'look-at-my-oshi' },
+];
 
 /**
  * 文字フォント

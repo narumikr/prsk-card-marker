@@ -8,9 +8,10 @@ const ImageUploaderText = {
 
 interface ImageUploaderProps {
   shape?: 'rectangle' | 'circle';
+  circleSizeClass?: string;
 }
 
-export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
+export const ImageUploader = ({ shape = 'rectangle', circleSizeClass = 'h-48 w-48' }: ImageUploaderProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -40,7 +41,7 @@ export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
   const { text, border, ring } = useSekaiColor();
   const isCircle = shape === 'circle';
   const buttonClassName = isCircle
-    ? `mx-auto flex h-48 w-48 cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-full transition focus:outline-none focus:ring-2 ${ring} ${
+    ? `mx-auto flex ${circleSizeClass} cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-full transition focus:outline-none focus:ring-2 ${ring} ${
         previewUrl ? '' : `border-2 border-dashed ${border} bg-gray-300 hover:bg-gray-400`
       }`
     : `mx-auto flex aspect-video w-full max-w-3xl cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-xl transition focus:outline-none focus:ring-2 ${ring} ${

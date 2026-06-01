@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { TOP_PAGE_TEXT } from '@/constant/pages.constant';
 import { useCardType } from '@/context/CardTypeContext';
 import { BasicIntroductionCard, CARD_HEIGHT, CARD_WIDTH } from '@/feature/cards/BasicIntroductionCard';
+import { LOOK_AT_MY_OSHI_CARD_HEIGHT, LOOK_AT_MY_OSHI_CARD_WIDTH, LookAtMyOshiCard } from '@/feature/cards/LookAtMyOshiCard';
 
 export function Top() {
   const profileRef = useRef<HTMLDivElement>(null);
@@ -28,10 +29,11 @@ export function Top() {
         ),
     );
 
+    const isLookAtMyOshi = cardType === 'look-at-my-oshi';
     const options = {
       style: { transform: 'none', transformOrigin: 'top left' },
-      width: CARD_WIDTH,
-      height: CARD_HEIGHT,
+      width: isLookAtMyOshi ? LOOK_AT_MY_OSHI_CARD_WIDTH : CARD_WIDTH,
+      height: isLookAtMyOshi ? LOOK_AT_MY_OSHI_CARD_HEIGHT : CARD_HEIGHT,
       pixelRatio: 2,
       skipFonts: true,
     };
@@ -54,6 +56,7 @@ export function Top() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 px-6">
       {cardType === 'basic' && <BasicIntroductionCard ref={profileRef} />}
+      {cardType === 'look-at-my-oshi' && <LookAtMyOshiCard ref={profileRef} />}
       <BasicButton type="button" onClick={handleDownload}>
         {TOP_PAGE_TEXT.saveImageButtonLabel}
       </BasicButton>
