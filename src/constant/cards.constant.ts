@@ -7,6 +7,6 @@ export const BasicIntroductionCardText = {
 };
 
 export const LookAtMyOshiCardText = {
-  // index 2 は TextArea（フリースペース）のため位置計算専用
-  inputLabels: ['キャラ名', 'ユニット', 'フリースペース', '好きなカード', 'いつから推してる', '推しへの一言'],
+  leftLabels: ['キャラ名', 'ユニット', '声優/CV', '誕生日', '好きなカード'],
+  rightLabels: ['いつから推してる', '好きな楽曲', '好きなシーン', '推しへの一言', '推しポイント'],
 };

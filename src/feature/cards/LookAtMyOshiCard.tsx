@@ -1,7 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { ImageUploader } from '@/components/atoms/ImageUploader';
 import { InputForm } from '@/components/atoms/InputForm';
-import { TextArea } from '@/components/atoms/TextArea';
 import { LookAtMyOshiCardText } from '@/constant/cards.constant';
 import { useSekaiColor } from '@/hooks/useSekaiColor';
 
@@ -11,17 +10,14 @@ export const LOOK_AT_MY_OSHI_CARD_HEIGHT = 540;
 const CENTER_X = LOOK_AT_MY_OSHI_CARD_WIDTH / 2;
 const CENTER_Y = LOOK_AT_MY_OSHI_CARD_HEIGHT / 2;
 const ORBIT_RX = 250;
-const ORBIT_RY = 190;
+const ORBIT_RY = 220;
 const FIELD_WIDTH = 180;
 const FIELD_HEIGHT = 72;
-const TEXTAREA_WIDTH = 300;
-const TEXTAREA_HEIGHT = 150;
-const TEXTAREA_INDEX = 2;
 const IMAGE_RADIUS = 128;
 
-function getFieldPositions(labels: string[]) {
+function getPositions(labels: string[], startDeg: number, stepDeg: number) {
   return labels.map((label, i) => {
-    const angle = (2 * Math.PI * i) / labels.length - Math.PI / 2;
+    const angle = ((startDeg + stepDeg * i) * Math.PI) / 180;
     const cx = CENTER_X + ORBIT_RX * Math.cos(angle);
     const cy = CENTER_Y + ORBIT_RY * Math.sin(angle);
     return { label, left: cx - FIELD_WIDTH / 2, top: cy - FIELD_HEIGHT / 2 };
@@ -43,7 +39,8 @@ export const LookAtMyOshiCard = forwardRef<HTMLDivElement>((_, ref) => {
     return () => observer.disconnect();
   }, []);
 
-  const fields = getFieldPositions(LookAtMyOshiCardText.inputLabels);
+  const leftFields = getPositions(LookAtMyOshiCardText.leftLabels, 240, -30);
+  const rightFields = getPositions(LookAtMyOshiCardText.rightLabels, 300, 30);
 
   return (
     <div ref={wrapperRef} className="w-full max-w-240" style={{ height: LOOK_AT_MY_OSHI_CARD_HEIGHT * scale }}>
@@ -66,34 +63,18 @@ export const LookAtMyOshiCard = forwardRef<HTMLDivElement>((_, ref) => {
           <ImageUploader shape="circle" circleSizeClass="h-64 w-64" />
         </div>
 
-        {fields.map(({ label, left, top }, i) =>
-          i === TEXTAREA_INDEX ? (
-            <div
-              key={label}
-              style={{
-                position: 'absolute',
-                left,
-                top,
-                width: TEXTAREA_WIDTH,
-                height: TEXTAREA_HEIGHT,
-                display: 'flex',
-                flexDirection: 'column',
-              }}>
-              <TextArea />
-            </div>
-          ) : (
-            <div
-              key={label}
-              style={{
-                position: 'absolute',
-                left,
-                top,
-                width: FIELD_WIDTH,
-              }}>
-              <InputForm label={label} />
-            </div>
-          ),
-        )}
+        {[...leftFields, ...rightFields].map(({ label, left, top }) => (
+          <div
+            key={label}
+            style={{
+              position: 'absolute',
+              left,
+              top,
+              width: FIELD_WIDTH,
+            }}>
+            <InputForm label={label} />
+          </div>
+        ))}
       </div>
     </div>
   );
