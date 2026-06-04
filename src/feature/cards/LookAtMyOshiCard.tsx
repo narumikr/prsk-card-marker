@@ -57,6 +57,21 @@ export const LookAtMyOshiCard = forwardRef<HTMLDivElement>((_, ref) => {
         <div
           style={{
             position: 'absolute',
+            inset: 16,
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gridTemplateRows: '1fr 1fr',
+            gap: 8,
+            opacity: 0.5,
+          }}>
+          {[0, 1, 2, 3].map((i) => (
+            <ImageUploader key={i} shape="rectangle" fill />
+          ))}
+        </div>
+
+        <div
+          style={{
+            position: 'absolute',
             left: CENTER_X - IMAGE_RADIUS,
             top: CENTER_Y - IMAGE_RADIUS,
           }}>
