@@ -1,14 +1,12 @@
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { forwardRef } from 'react';
 import { ImageUploader } from '@/components/atoms/ImageUploader';
 import { InputForm } from '@/components/atoms/InputForm';
-import { LookAtMyOshiCardText } from '@/constant/cards.constant';
+import { CARD_HEIGHT, CARD_WIDTH, LookAtMyOshiCardText } from '@/constant/cards.constant';
+import { useCardScale } from '@/hooks/useCardScale';
 import { useSekaiColor } from '@/hooks/useSekaiColor';
 
-export const LOOK_AT_MY_OSHI_CARD_WIDTH = 960;
-export const LOOK_AT_MY_OSHI_CARD_HEIGHT = 540;
-
-const CENTER_X = LOOK_AT_MY_OSHI_CARD_WIDTH / 2;
-const CENTER_Y = LOOK_AT_MY_OSHI_CARD_HEIGHT / 2;
+const CENTER_X = CARD_WIDTH / 2;
+const CENTER_Y = CARD_HEIGHT / 2;
 const ORBIT_RX = 280;
 const ORBIT_RY = 220;
 const FIELD_WIDTH = 220;
@@ -26,29 +24,18 @@ function getPositions(labels: string[], startDeg: number, stepDeg: number, yOffs
 
 export const LookAtMyOshiCard = forwardRef<HTMLDivElement>((_, ref) => {
   const { border } = useSekaiColor();
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
+  const { wrapperRef, scale } = useCardScale(CARD_WIDTH);
 
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
-    const observer = new ResizeObserver(([entry]) => {
-      setScale(Math.min(entry.contentRect.width / LOOK_AT_MY_OSHI_CARD_WIDTH, 1));
-    });
-    observer.observe(wrapper);
-    return () => observer.disconnect();
-  }, []);
-
-  const leftFields = getPositions(LookAtMyOshiCardText.leftLabels, 240, -30, [0, 10, 0, -10]);
-  const rightFields = getPositions(LookAtMyOshiCardText.rightLabels, 300, 30, [0, 10, 0, -10]);
+  const leftFields = getPositions(LookAtMyOshiCardText.leftLabels, 240, -30, [0, 10, 0, -10, 0]);
+  const rightFields = getPositions(LookAtMyOshiCardText.rightLabels, 300, 30, [0, 10, 0, -10, 0]);
 
   return (
-    <div ref={wrapperRef} className="w-full max-w-240" style={{ height: LOOK_AT_MY_OSHI_CARD_HEIGHT * scale }}>
+    <div ref={wrapperRef} className="w-full max-w-240" style={{ height: CARD_HEIGHT * scale }}>
       <div
         ref={ref}
         style={{
-          width: LOOK_AT_MY_OSHI_CARD_WIDTH,
-          height: LOOK_AT_MY_OSHI_CARD_HEIGHT,
+          width: CARD_WIDTH,
+          height: CARD_HEIGHT,
           transform: `scale(${scale})`,
           transformOrigin: 'top left',
           position: 'relative',

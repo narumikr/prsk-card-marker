@@ -15,7 +15,7 @@ interface DropdownOption {
 
 interface DropdownProps {
   title: string;
-  options: DropdownOption[];
+  options: readonly DropdownOption[];
   defaultValue?: string;
   onSelect?: (value: string) => void;
 }

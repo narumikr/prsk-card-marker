@@ -1,3 +1,6 @@
+export const CARD_WIDTH = 960;
+export const CARD_HEIGHT = 540;
+
 /**
  * @description BasicIntroductionCardコンポーネントのテキスト定義
  */

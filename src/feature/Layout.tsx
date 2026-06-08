@@ -1,5 +1,6 @@
 import { SekaiBackground } from '@naru/untitled-ui-library';
 import { useState } from 'react';
+import type { CardTypeValue } from '@/constant/sidemenu.constants';
 import { CardTypeContext } from '@/context/CardTypeContext';
 import { SideMenu } from '@/feature/SideMenu';
 
@@ -10,7 +11,7 @@ type LayoutProps = {
 export const Layout = ({ children }: LayoutProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>('');
-  const [cardType, setCardType] = useState<string>('basic');
+  const [cardType, setCardType] = useState<CardTypeValue>('basic');
 
   return (
     <CardTypeContext.Provider value={{ cardType }}>
@@ -19,7 +20,7 @@ export const Layout = ({ children }: LayoutProps) => {
         isOpen={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
         onFontChange={setFontFamily}
-        onCardTypeChange={setCardType}
+        onCardTypeChange={(v) => setCardType(v as CardTypeValue)}
       />
       <div
         style={fontFamily ? ({ '--content-font': fontFamily } as React.CSSProperties) : undefined}

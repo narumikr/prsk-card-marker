@@ -1,10 +1,11 @@
 import { BasicButton } from '@naru/untitled-ui-library';
 import { toPng } from 'html-to-image';
 import { useRef } from 'react';
+import { CARD_HEIGHT, CARD_WIDTH } from '@/constant/cards.constant';
 import { TOP_PAGE_TEXT } from '@/constant/pages.constant';
 import { useCardType } from '@/context/CardTypeContext';
-import { BasicIntroductionCard, CARD_HEIGHT, CARD_WIDTH } from '@/feature/cards/BasicIntroductionCard';
-import { LOOK_AT_MY_OSHI_CARD_HEIGHT, LOOK_AT_MY_OSHI_CARD_WIDTH, LookAtMyOshiCard } from '@/feature/cards/LookAtMyOshiCard';
+import { BasicIntroductionCard } from '@/feature/cards/BasicIntroductionCard';
+import { LookAtMyOshiCard } from '@/feature/cards/LookAtMyOshiCard';
 
 export function Top() {
   const profileRef = useRef<HTMLDivElement>(null);
@@ -29,11 +30,10 @@ export function Top() {
         ),
     );
 
-    const isLookAtMyOshi = cardType === 'look-at-my-oshi';
     const options = {
       style: { transform: 'none', transformOrigin: 'top left' },
-      width: isLookAtMyOshi ? LOOK_AT_MY_OSHI_CARD_WIDTH : CARD_WIDTH,
-      height: isLookAtMyOshi ? LOOK_AT_MY_OSHI_CARD_HEIGHT : CARD_HEIGHT,
+      width: CARD_WIDTH,
+      height: CARD_HEIGHT,
       pixelRatio: 2,
       skipFonts: true,
     };

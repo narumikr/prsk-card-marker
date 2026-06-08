@@ -44,7 +44,9 @@ export const OshiDropdownItem: { label: string; value: ColorsSekaiKey }[] = [
 export const CardTypeDropdownItem = [
   { label: '自己紹介', value: 'basic' },
   { label: '私の推し', value: 'look-at-my-oshi' },
-];
+] as const;
+
+export type CardTypeValue = (typeof CardTypeDropdownItem)[number]['value'];
 
 /**
  * 文字フォント
