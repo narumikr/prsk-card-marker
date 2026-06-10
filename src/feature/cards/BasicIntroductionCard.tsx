@@ -1,27 +1,14 @@
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { forwardRef } from 'react';
 import { InputForm } from '@/components/atoms/InputForm';
 import { TextArea } from '@/components/atoms/TextArea';
 import { Gallery } from '@/components/molecules/Gallery';
-import { BasicIntroductionCardText } from '@/constant/cards.constant';
+import { BasicIntroductionCardText, CARD_HEIGHT, CARD_WIDTH } from '@/constant/cards.constant';
+import { useCardScale } from '@/hooks/useCardScale';
 import { useSekaiColor } from '@/hooks/useSekaiColor';
-
-export const CARD_WIDTH = 960;
-export const CARD_HEIGHT = 540;
 
 export const BasicIntroductionCard = forwardRef<HTMLDivElement>((_, ref) => {
   const { border } = useSekaiColor();
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
-
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
-    const observer = new ResizeObserver(([entry]) => {
-      setScale(Math.min(entry.contentRect.width / CARD_WIDTH, 1));
-    });
-    observer.observe(wrapper);
-    return () => observer.disconnect();
-  }, []);
+  const { wrapperRef, scale } = useCardScale(CARD_WIDTH);
 
   return (
     <div ref={wrapperRef} className="w-full max-w-240" style={{ height: CARD_HEIGHT * scale }}>
