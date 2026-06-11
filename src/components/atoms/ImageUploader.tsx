@@ -6,11 +6,9 @@ const ImageUploaderText = {
   imageReadErrorLog: '画像の読み込みに失敗しました',
 } as const;
 
-interface ImageUploaderProps {
-  shape?: 'rectangle' | 'circle';
-}
+type ImageUploaderProps = { shape: 'circle'; circleSizeClass?: string } | { shape?: 'rectangle'; fill?: boolean };
 
-export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
+export const ImageUploader = (props: ImageUploaderProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -38,14 +36,17 @@ export const ImageUploader = ({ shape = 'rectangle' }: ImageUploaderProps) => {
   };
 
   const { text, border, ring } = useSekaiColor();
-  const isCircle = shape === 'circle';
-  const buttonClassName = isCircle
-    ? `mx-auto flex h-48 w-48 cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-full transition focus:outline-none focus:ring-2 ${ring} ${
-        previewUrl ? '' : `border-2 border-dashed ${border} bg-gray-300 hover:bg-gray-400`
-      }`
-    : `mx-auto flex aspect-video w-full max-w-3xl cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-xl transition focus:outline-none focus:ring-2 ${ring} ${
-        previewUrl ? '' : `border-2 border-dashed ${border} bg-gray-300 hover:bg-gray-400`
-      }`;
+  const emptyStateClass = previewUrl ? '' : `border-2 border-dashed ${border} bg-gray-300 hover:bg-gray-400`;
+
+  let buttonClassName: string;
+  if (props.shape === 'circle') {
+    const circleSizeClass = props.circleSizeClass ?? 'h-48 w-48';
+    buttonClassName = `mx-auto flex ${circleSizeClass} cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-full transition focus:outline-none focus:ring-2 ${ring} ${emptyStateClass}`;
+  } else if (props.fill) {
+    buttonClassName = `flex h-full w-full cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-xl transition focus:outline-none focus:ring-2 ${ring} ${emptyStateClass}`;
+  } else {
+    buttonClassName = `mx-auto flex aspect-video w-full max-w-3xl cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-xl transition focus:outline-none focus:ring-2 ${ring} ${emptyStateClass}`;
+  }
 
   return (
     <>

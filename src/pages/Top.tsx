@@ -1,9 +1,11 @@
 import { BasicButton } from '@naru/untitled-ui-library';
 import { toPng } from 'html-to-image';
 import { useRef } from 'react';
+import { CARD_HEIGHT, CARD_WIDTH } from '@/constant/cards.constant';
 import { TOP_PAGE_TEXT } from '@/constant/pages.constant';
 import { useCardType } from '@/context/CardTypeContext';
-import { BasicIntroductionCard, CARD_HEIGHT, CARD_WIDTH } from '@/feature/cards/BasicIntroductionCard';
+import { BasicIntroductionCard } from '@/feature/cards/BasicIntroductionCard';
+import { LookAtMyOshiCard } from '@/feature/cards/LookAtMyOshiCard';
 
 export function Top() {
   const profileRef = useRef<HTMLDivElement>(null);
@@ -54,6 +56,7 @@ export function Top() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 px-6">
       {cardType === 'basic' && <BasicIntroductionCard ref={profileRef} />}
+      {cardType === 'look-at-my-oshi' && <LookAtMyOshiCard ref={profileRef} />}
       <BasicButton type="button" onClick={handleDownload}>
         {TOP_PAGE_TEXT.saveImageButtonLabel}
       </BasicButton>
