@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-.content-font-apply * {
+.content-font-apply [data-card-content='true'] * {
   font-family: var(--content-font);
 }
 

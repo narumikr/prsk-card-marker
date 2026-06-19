@@ -13,6 +13,7 @@ export const BasicIntroductionCard = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div ref={wrapperRef} className="w-full max-w-240" style={{ height: CARD_HEIGHT * scale }}>
       <div
+        data-card-content="true"
         ref={ref}
         style={{
           width: CARD_WIDTH,

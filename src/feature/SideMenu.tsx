@@ -1,6 +1,7 @@
 import { type ColorsSekaiKey, SideMenu as SekaiSideMenu, useCreateSekai } from '@naru/untitled-ui-library';
 import { Dropdown } from '@/components/molecules/Dropdown';
 import { CardTypeDropdownItem, type CardTypeValue, FontFamily, OshiDropdownItem } from '@/constant/sidemenu.constants';
+import { loadGoogleFont } from '@/utils/loadGoogleFont';
 
 const isCardTypeValue = (v: string): v is CardTypeValue =>
   (CardTypeDropdownItem as readonly { value: string }[]).some((item) => item.value === v);
@@ -25,6 +26,11 @@ export const SideMenu = ({ isOpen, onClick, onFontChange, onCardTypeChange }: Si
     switchSekaiColor?.(value as ColorsSekaiKey);
   };
 
+  const handleFontSelect = (value: string) => {
+    loadGoogleFont(value);
+    onFontChange(value);
+  };
+
   return (
     <SekaiSideMenu open={isOpen} onClick={onClick}>
       <Dropdown
@@ -44,7 +50,7 @@ export const SideMenu = ({ isOpen, onClick, onFontChange, onCardTypeChange }: Si
       <Dropdown
         title={SideMenuText.fontFamily}
         options={FontFamily}
-        onSelect={onFontChange}
+        onSelect={handleFontSelect}
         defaultValue={FontFamily[0].value}
       />
     </SekaiSideMenu>
