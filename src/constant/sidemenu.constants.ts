@@ -41,9 +41,13 @@ export const OshiDropdownItem: { label: string; value: ColorsSekaiKey }[] = [
 /**
  * カード種類
  */
+export const BasicCardType = 'basic';
+export const LookAtMyOshiCardType = 'look-at-my-oshi';
+export const OfficialProfileCardType = 'official-profile';
 export const CardTypeDropdownItem = [
-  { label: '自己紹介', value: 'basic' },
-  { label: '私の推し', value: 'look-at-my-oshi' },
+  { label: '自己紹介', value: BasicCardType },
+  { label: '私の推し', value: LookAtMyOshiCardType },
+  { label: '公式プロフ', value: OfficialProfileCardType },
 ] as const;
 
 export type CardTypeValue = (typeof CardTypeDropdownItem)[number]['value'];
