@@ -57,7 +57,7 @@ export function Top() {
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 px-6">
       {cardType === 'basic' && <BasicIntroductionCard ref={profileRef} />}
       {cardType === 'look-at-my-oshi' && <LookAtMyOshiCard ref={profileRef} />}
-      <BasicButton type="button" onClick={handleDownload}>
+      <BasicButton type="button" onClick={handleDownload} className="--content-font">
         {TOP_PAGE_TEXT.saveImageButtonLabel}
       </BasicButton>
     </main>
