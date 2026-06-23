@@ -9,7 +9,7 @@ type LayoutProps = {
 };
 
 export const Layout = ({ children }: LayoutProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [fontFamily, setFontFamily] = useState<string>('');
   const [cardType, setCardType] = useState<CardTypeValue>(BasicCardType);
 
