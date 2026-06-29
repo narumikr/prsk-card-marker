@@ -1,4 +1,5 @@
 import { NamePlate } from '@naru/untitled-ui-library';
+import { TextArea } from '@/components/atoms/TextArea';
 import { useSekaiColor } from '@/hooks/useSekaiColor';
 
 const TextAreaText = {
@@ -13,10 +14,7 @@ export const TextAreaForm = () => {
         <NamePlate text={TextAreaText.title} className="w-48" />
       </div>
       <div className={`min-h-0 flex-1 rounded border ${border} px-3 pb-3 pt-4`}>
-        <textarea
-          aria-label={TextAreaText.title}
-          className="h-full min-h-0 resize-none rounded border-0 px-2 py-1 font-bold outline-none focus:border-0 focus:outline-none focus:ring-0"
-        />
+        <TextArea label={TextAreaText.title} className="h-full min-h-0 px-2 py-1" />
       </div>
     </div>
   );
