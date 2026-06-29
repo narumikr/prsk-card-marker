@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { TextArea } from '@/components/atoms/TextArea';
+import { TextAreaForm } from '@/components/atoms/TextAreaForm';
 import { Gallery } from '@/components/molecules/Gallery';
 import { InputForm } from '@/components/molecules/InputForm';
 import { BasicIntroductionCardText, CARD_HEIGHT, CARD_WIDTH } from '@/constant/cards.constant';
@@ -31,7 +31,7 @@ export const BasicIntroductionCard = forwardRef<HTMLDivElement>((_, ref) => {
           </div>
           <div style={{ width: 560 }} className="flex flex-col gap-4">
             <Gallery />
-            <TextArea />
+            <TextAreaForm />
           </div>
         </div>
       </div>

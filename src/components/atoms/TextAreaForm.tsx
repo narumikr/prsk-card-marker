@@ -5,7 +5,7 @@ const TextAreaText = {
   title: 'フリースペース',
 } as const;
 
-export const TextArea = () => {
+export const TextAreaForm = () => {
   const { border } = useSekaiColor();
   return (
     <div className="relative flex min-h-0 h-full flex-col pt-4">
