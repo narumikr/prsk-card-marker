@@ -35,7 +35,7 @@ export const BasicIntroductionCard = ({ ref }: BasicIntroductionCardProps) => {
           </div>
           <div style={{ width: 560 }} className="flex flex-col gap-4">
             <Gallery />
-            <TextAreaForm />
+            <TextAreaForm label={BasicIntroductionCardText.freeSpace} />
           </div>
         </div>
       </div>
