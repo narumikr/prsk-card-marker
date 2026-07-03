@@ -32,13 +32,15 @@ export function Top() {
         ),
     );
 
+    // 選択直後の即ダウンロードで Web フォントが未DLでも取りこぼさないよう待機する
+    await document.fonts.ready;
+
     const isOfficial = cardType === OfficialProfileCardType;
     const options = {
       style: { transform: 'none', transformOrigin: 'top left' },
       width: isOfficial ? OFFICIAL_CARD_WIDTH : CARD_WIDTH,
       height: isOfficial ? OFFICIAL_CARD_HEIGHT : CARD_HEIGHT,
       pixelRatio: 2,
-      skipFonts: true,
     };
 
     try {
