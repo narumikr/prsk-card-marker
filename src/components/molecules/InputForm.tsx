@@ -1,4 +1,5 @@
 import { NamePlate } from '@naru/untitled-ui-library';
+import { Input } from '@/components/atoms/Input';
 import { useSekaiColor } from '@/hooks/useSekaiColor';
 
 interface InputFormProps {
@@ -13,11 +14,7 @@ export const InputForm = ({ label }: InputFormProps) => {
         <NamePlate text={label} className="w-48" />
       </div>
       <div className={`rounded border ${border} px-3 pb-3 pt-4`}>
-        <input
-          type="text"
-          aria-label={label}
-          className="w-full font-bold rounded border-0 px-2 py-1 text-center outline-none focus:border-0 focus:outline-none focus:ring-0"
-        />
+        <Input label={label} className="px-2 py-1" />
       </div>
     </div>
   );

@@ -1,9 +1,13 @@
-import { forwardRef } from 'react';
+import type { Ref } from 'react';
 import { ImageUploader } from '@/components/atoms/ImageUploader';
-import { InputForm } from '@/components/atoms/InputForm';
+import { InputForm } from '@/components/molecules/InputForm';
 import { CARD_HEIGHT, CARD_WIDTH, LookAtMyOshiCardText } from '@/constant/cards.constant';
 import { useCardScale } from '@/hooks/useCardScale';
 import { useSekaiColor } from '@/hooks/useSekaiColor';
+
+interface LookAtMyOshiCardProps {
+  ref?: Ref<HTMLDivElement>;
+}
 
 const CENTER_X = CARD_WIDTH / 2;
 const CENTER_Y = CARD_HEIGHT / 2;
@@ -22,7 +26,7 @@ function getPositions(labels: string[], startDeg: number, stepDeg: number, yOffs
   });
 }
 
-export const LookAtMyOshiCard = forwardRef<HTMLDivElement>((_, ref) => {
+export const LookAtMyOshiCard = ({ ref }: LookAtMyOshiCardProps) => {
   const { border } = useSekaiColor();
   const { wrapperRef, scale } = useCardScale(CARD_WIDTH);
 
@@ -81,6 +85,4 @@ export const LookAtMyOshiCard = forwardRef<HTMLDivElement>((_, ref) => {
       </div>
     </div>
   );
-});
-
-LookAtMyOshiCard.displayName = 'LookAtMyOshiCard';
+};
