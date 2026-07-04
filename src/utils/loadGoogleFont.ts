@@ -26,29 +26,6 @@ const parseFamilyName = (fontFamilyValue: string): string => {
   return familyName.trim().replace(/^['"]|['"]$/g, '');
 };
 
-interface ParsedFace {
-  weight: string;
-  style: string;
-  url: string;
-}
-
-const parseFontFaces = (cssText: string): ParsedFace[] => {
-  const faces: ParsedFace[] = [];
-  const blockRegex = /@font-face\s*{([^}]+)}/g;
-  let blockMatch = blockRegex.exec(cssText);
-  while (blockMatch !== null) {
-    const block = blockMatch[1];
-    const weight = /font-weight:\s*([^;]+);/.exec(block)?.[1]?.trim() ?? '400';
-    const style = /font-style:\s*([^;]+);/.exec(block)?.[1]?.trim() ?? 'normal';
-    const url = /src:\s*url\(([^)]+)\)/.exec(block)?.[1]?.trim();
-    if (url) {
-      faces.push({ weight, style, url });
-    }
-    blockMatch = blockRegex.exec(cssText);
-  }
-  return faces;
-};
-
 const loadFamily = async (familyName: string, query: string): Promise<void> => {
   const url = `${GOOGLE_FONTS_BASE_URL}?${query}&display=swap`;
   const response = await fetch(url, { mode: 'cors' });
@@ -56,17 +33,17 @@ const loadFamily = async (familyName: string, query: string): Promise<void> => {
     throw new Error(`Failed to fetch font CSS: ${response.status}`);
   }
   const cssText = await response.text();
-  const faces = parseFontFaces(cssText);
-  if (faces.length === 0) {
-    throw new Error('No @font-face rules found');
-  }
-  await Promise.all(
-    faces.map(async ({ weight, style, url: srcUrl }) => {
-      const face = new FontFace(familyName, `url(${srcUrl})`, { weight, style });
-      await face.load();
-      document.fonts.add(face);
-    }),
-  );
+
+  // html-to-image reads document.styleSheets for @font-face rules, so we
+  // need the CSS text in a <style> node (not just FontFace objects added
+  // via the JS API). The browser will also auto-register matching
+  // FontFace entries in document.fonts when it parses this <style>.
+  const style = document.createElement('style');
+  style.dataset.googleFontFamily = familyName;
+  style.textContent = cssText;
+  document.head.append(style);
+
+  await document.fonts.load(`10px "${familyName}"`);
   loadedFamilies.add(familyName);
 };
 
