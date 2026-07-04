@@ -17,13 +17,60 @@ const fontQueryByFamilyName: Record<string, string> = {
 };
 
 const loadedFamilies = new Set<string>();
+const inflightLoads = new Map<string, Promise<void>>();
+
+const FONT_LOAD_ERROR_LOG = 'Google Fontの読み込みに失敗しました';
 
 const parseFamilyName = (fontFamilyValue: string): string => {
   const [familyName = ''] = fontFamilyValue.split(',');
   return familyName.trim().replace(/^['"]|['"]$/g, '');
 };
 
-export const loadGoogleFont = (fontFamilyValue: string): void => {
+interface ParsedFace {
+  weight: string;
+  style: string;
+  url: string;
+}
+
+const parseFontFaces = (cssText: string): ParsedFace[] => {
+  const faces: ParsedFace[] = [];
+  const blockRegex = /@font-face\s*{([^}]+)}/g;
+  let blockMatch = blockRegex.exec(cssText);
+  while (blockMatch !== null) {
+    const block = blockMatch[1];
+    const weight = /font-weight:\s*([^;]+);/.exec(block)?.[1]?.trim() ?? '400';
+    const style = /font-style:\s*([^;]+);/.exec(block)?.[1]?.trim() ?? 'normal';
+    const url = /src:\s*url\(([^)]+)\)/.exec(block)?.[1]?.trim();
+    if (url) {
+      faces.push({ weight, style, url });
+    }
+    blockMatch = blockRegex.exec(cssText);
+  }
+  return faces;
+};
+
+const loadFamily = async (familyName: string, query: string): Promise<void> => {
+  const url = `${GOOGLE_FONTS_BASE_URL}?${query}&display=swap`;
+  const response = await fetch(url, { mode: 'cors' });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch font CSS: ${response.status}`);
+  }
+  const cssText = await response.text();
+  const faces = parseFontFaces(cssText);
+  if (faces.length === 0) {
+    throw new Error('No @font-face rules found');
+  }
+  await Promise.all(
+    faces.map(async ({ weight, style, url: srcUrl }) => {
+      const face = new FontFace(familyName, `url(${srcUrl})`, { weight, style });
+      await face.load();
+      document.fonts.add(face);
+    }),
+  );
+  loadedFamilies.add(familyName);
+};
+
+export const loadGoogleFont = async (fontFamilyValue: string): Promise<void> => {
   const familyName = parseFamilyName(fontFamilyValue);
   const query = fontQueryByFamilyName[familyName];
 
@@ -31,13 +78,18 @@ export const loadGoogleFont = (fontFamilyValue: string): void => {
     return;
   }
 
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = `${GOOGLE_FONTS_BASE_URL}?${query}&display=swap`;
-  // html-to-image が cssRules を参照するため、cross-origin stylesheet を CORS 経由で読めるようにする
-  link.crossOrigin = 'anonymous';
-  link.dataset.googleFontFamily = familyName;
+  const existing = inflightLoads.get(familyName);
+  if (existing) {
+    return existing;
+  }
 
-  document.head.append(link);
-  loadedFamilies.add(familyName);
+  const promise = loadFamily(familyName, query).catch((error) => {
+    console.warn(FONT_LOAD_ERROR_LOG, familyName, error);
+  });
+  inflightLoads.set(familyName, promise);
+  try {
+    await promise;
+  } finally {
+    inflightLoads.delete(familyName);
+  }
 };
