@@ -13,6 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set prsk label and comments
-        uses: narumikr/link-sekai-actions/prsk-cheering@v6
+        uses: narumikr/link-sekai-actions/prsk-cheering@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
