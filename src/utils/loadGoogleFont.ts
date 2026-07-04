@@ -34,6 +34,8 @@ export const loadGoogleFont = (fontFamilyValue: string): void => {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.href = `${GOOGLE_FONTS_BASE_URL}?${query}&display=swap`;
+  // html-to-image が cssRules を参照するため、cross-origin stylesheet を CORS 経由で読めるようにする
+  link.crossOrigin = 'anonymous';
   link.dataset.googleFontFamily = familyName;
 
   document.head.append(link);
