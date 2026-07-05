@@ -42,7 +42,7 @@ const downloadBlob = (blob: Blob, fileName: string) => {
 
   setTimeout(() => {
     URL.revokeObjectURL(objectUrl);
-  }, 0);
+  }, 1000);
 };
 
 export function Top() {
@@ -61,7 +61,7 @@ export function Top() {
     const isOfficial = cardType === OfficialProfileCardType;
     const width = isOfficial ? OFFICIAL_CARD_WIDTH : CARD_WIDTH;
     const height = isOfficial ? OFFICIAL_CARD_HEIGHT : CARD_HEIGHT;
-    const scale = Math.min(window.devicePixelRatio || 1, 2);
+    const canvasScale = Math.min(window.devicePixelRatio || 1, 2);
 
     try {
       const { default: html2canvas } = await import('html2canvas');
@@ -69,7 +69,7 @@ export function Top() {
         backgroundColor: null,
         height,
         logging: false,
-        scale,
+        scale: canvasScale,
         useCORS: true,
         width,
         onclone: (clonedDocument) => {
