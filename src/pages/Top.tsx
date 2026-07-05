@@ -8,6 +8,8 @@ import { BasicIntroductionCard } from '@/feature/cards/BasicIntroductionCard';
 import { LookAtMyOshiCard } from '@/feature/cards/LookAtMyOshiCard';
 import { OfficialProfileCard } from '@/feature/cards/OfficialProfileCard';
 
+const CARD_CONTENT_SELECTOR = '[data-card-content="true"]';
+
 const waitForImageReady = async (image: HTMLImageElement) => {
   if (image.complete) {
     await image.decode().catch(() => undefined);
@@ -40,9 +42,11 @@ const downloadBlob = (blob: Blob, fileName: string) => {
   link.href = objectUrl;
   link.click();
 
-  setTimeout(() => {
-    URL.revokeObjectURL(objectUrl);
-  }, 1000);
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      URL.revokeObjectURL(objectUrl);
+    });
+  });
 };
 
 export function Top() {
@@ -61,7 +65,7 @@ export function Top() {
     const isOfficial = cardType === OfficialProfileCardType;
     const width = isOfficial ? OFFICIAL_CARD_WIDTH : CARD_WIDTH;
     const height = isOfficial ? OFFICIAL_CARD_HEIGHT : CARD_HEIGHT;
-    const canvasScale = Math.min(window.devicePixelRatio || 1, 2);
+    const clampedPixelRatio = Math.min(window.devicePixelRatio || 1, 2);
 
     try {
       const { default: html2canvas } = await import('html2canvas');
@@ -69,11 +73,11 @@ export function Top() {
         backgroundColor: null,
         height,
         logging: false,
-        scale: canvasScale,
+        scale: clampedPixelRatio,
         useCORS: true,
         width,
         onclone: (clonedDocument) => {
-          const clonedEl = clonedDocument.querySelector<HTMLElement>('[data-card-content="true"]');
+          const clonedEl = clonedDocument.querySelector<HTMLElement>(CARD_CONTENT_SELECTOR);
 
           if (!clonedEl) {
             return;
