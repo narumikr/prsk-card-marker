@@ -9,6 +9,7 @@ import { LookAtMyOshiCard } from '@/feature/cards/LookAtMyOshiCard';
 import { OfficialProfileCard } from '@/feature/cards/OfficialProfileCard';
 
 const CARD_CONTENT_SELECTOR = '[data-card-content="true"]';
+const IMAGE_LOAD_WARN_LOG = '画像の読み込みに失敗しました';
 
 const waitForImageReady = async (image: HTMLImageElement) => {
   if (image.complete) {
@@ -18,7 +19,14 @@ const waitForImageReady = async (image: HTMLImageElement) => {
 
   await new Promise<void>((resolve) => {
     image.addEventListener('load', () => resolve(), { once: true });
-    image.addEventListener('error', () => resolve(), { once: true });
+    image.addEventListener(
+      'error',
+      () => {
+        console.warn(IMAGE_LOAD_WARN_LOG, image.currentSrc || image.src);
+        resolve();
+      },
+      { once: true },
+    );
   });
 };
 
@@ -42,6 +50,7 @@ const downloadBlob = (blob: Blob, fileName: string) => {
   link.href = objectUrl;
   link.click();
 
+  // 一部ブラウザで download 開始前に revoke されるのを避けるため 2 フレーム待つ
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       URL.revokeObjectURL(objectUrl);
@@ -65,7 +74,7 @@ export function Top() {
     const isOfficial = cardType === OfficialProfileCardType;
     const width = isOfficial ? OFFICIAL_CARD_WIDTH : CARD_WIDTH;
     const height = isOfficial ? OFFICIAL_CARD_HEIGHT : CARD_HEIGHT;
-    const clampedPixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const maxPixelRatio = Math.min(window.devicePixelRatio || 1, 2);
 
     try {
       const { default: html2canvas } = await import('html2canvas');
@@ -73,7 +82,7 @@ export function Top() {
         backgroundColor: null,
         height,
         logging: false,
-        scale: clampedPixelRatio,
+        scale: maxPixelRatio,
         useCORS: true,
         width,
         onclone: (clonedDocument) => {
