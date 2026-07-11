@@ -8,7 +8,6 @@ import { BasicIntroductionCard } from '@/feature/cards/BasicIntroductionCard';
 import { LookAtMyOshiCard } from '@/feature/cards/LookAtMyOshiCard';
 import { OfficialProfileCard } from '@/feature/cards/OfficialProfileCard';
 
-const CARD_CONTENT_SELECTOR = '[data-card-content="true"]';
 const IMAGE_LOAD_WARN_LOG = '画像の読み込みに失敗しました';
 
 const waitForImageReady = async (image: HTMLImageElement) => {
@@ -29,18 +28,6 @@ const waitForImageReady = async (image: HTMLImageElement) => {
     );
   });
 };
-
-const canvasToBlob = (canvas: HTMLCanvasElement) =>
-  new Promise<Blob>((resolve, reject) => {
-    canvas.toBlob((blob) => {
-      if (blob) {
-        resolve(blob);
-        return;
-      }
-
-      reject(new Error(TOP_PAGE_TEXT.genImageErrorLog));
-    }, 'image/png');
-  });
 
 const downloadBlob = (blob: Blob, fileName: string) => {
   const objectUrl = URL.createObjectURL(blob);
@@ -74,32 +61,22 @@ export function Top() {
     const isOfficial = cardType === OfficialProfileCardType;
     const width = isOfficial ? OFFICIAL_CARD_WIDTH : CARD_WIDTH;
     const height = isOfficial ? OFFICIAL_CARD_HEIGHT : CARD_HEIGHT;
-    const maxPixelRatio = Math.min(window.devicePixelRatio || 1, 2);
 
     try {
-      const { default: html2canvas } = await import('html2canvas');
-      const canvas = await html2canvas(el, {
+      const { domToBlob } = await import('modern-screenshot');
+      const blob = await domToBlob(el, {
         backgroundColor: null,
         height,
-        logging: false,
-        scale: maxPixelRatio,
-        useCORS: true,
-        width,
-        onclone: (clonedDocument) => {
-          const clonedEl = clonedDocument.querySelector<HTMLElement>(CARD_CONTENT_SELECTOR);
-
-          if (!clonedEl) {
-            return;
-          }
-
-          clonedEl.style.width = `${width}px`;
-          clonedEl.style.height = `${height}px`;
-          clonedEl.style.transform = 'none';
-          clonedEl.style.transformOrigin = 'top left';
+        scale: 2,
+        style: {
+          transform: 'none',
+          transformOrigin: 'top left',
+          width: `${width}px`,
+          height: `${height}px`,
         },
+        width,
       });
 
-      const blob = await canvasToBlob(canvas);
       downloadBlob(blob, TOP_PAGE_TEXT.profileFileName);
     } catch (error) {
       console.error(TOP_PAGE_TEXT.genImageErrorLog, error);
