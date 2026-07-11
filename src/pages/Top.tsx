@@ -8,8 +8,6 @@ import { BasicIntroductionCard } from '@/feature/cards/BasicIntroductionCard';
 import { LookAtMyOshiCard } from '@/feature/cards/LookAtMyOshiCard';
 import { OfficialProfileCard } from '@/feature/cards/OfficialProfileCard';
 
-const IMAGE_LOAD_WARN_LOG = '画像の読み込みに失敗しました';
-
 const waitForImageReady = async (image: HTMLImageElement) => {
   if (image.complete) {
     await image.decode().catch(() => undefined);
@@ -21,7 +19,7 @@ const waitForImageReady = async (image: HTMLImageElement) => {
     image.addEventListener(
       'error',
       () => {
-        console.warn(IMAGE_LOAD_WARN_LOG, image.currentSrc || image.src);
+        console.warn('画像の読み込みに失敗しました', image.currentSrc || image.src);
         resolve();
       },
       { once: true },
@@ -54,7 +52,7 @@ export function Top() {
     const el = profileRef.current;
 
     const imgs = Array.from(el.querySelectorAll<HTMLImageElement>('img'));
-    await Promise.all(imgs.map((img) => waitForImageReady(img)));
+    await Promise.all(imgs.map(waitForImageReady));
 
     await document.fonts.ready;
 
@@ -68,12 +66,7 @@ export function Top() {
         backgroundColor: null,
         height,
         scale: 2,
-        style: {
-          transform: 'none',
-          transformOrigin: 'top left',
-          width: `${width}px`,
-          height: `${height}px`,
-        },
+        style: { transform: 'none' },
         width,
       });
 
