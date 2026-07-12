@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@naru/untitled-ui-library": "github:Narumikr/Untitled#release/untitled",
-    "html-to-image": "^1.11.13",
+    "modern-screenshot": "^4.6.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.13.2"
