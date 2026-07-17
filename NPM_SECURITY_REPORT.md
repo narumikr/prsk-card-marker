@@ -1,8 +1,8 @@
 # 🩺 依存関係ヘルスレポート
 
-> 🦄 **神代 類**: 依存関係の状態を分析してみたよ。ふふ、結果を見てみようか？🦄
+> 🐧 **桐谷 遥**: 依存関係少し心配だったから確認してレポートにまとめたよ。私も手伝うから確認しちゃおう🐧
 
-**実行日時**: 2026/07/04 01:32:07 JST
+**実行日時**: 2026/07/18 01:27:12 JST
 
 ---
 
@@ -10,7 +10,8 @@
 
 ```
 Package      Current  Wanted  Latest  Location                  Depended by
-@types/node   25.9.4  25.9.4  26.1.0  node_modules/@types/node  prsk-card-marker
+@types/node   25.9.5  25.9.5  26.1.1  node_modules/@types/node  prsk-card-marker
+typescript     6.0.3   6.0.3   7.0.2  node_modules/typescript   prsk-card-marker
 ```
 
 ---
