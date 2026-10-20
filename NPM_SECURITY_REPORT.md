@@ -1,8 +1,8 @@
 # 🩺 依存関係ヘルスレポート
 
-> ☕ **青柳 冬弥**: 依存関係のチェックして、レポートにまとめておいたから後で確認しておいてくれ☕️
+> 🎼 **宵崎 奏**: パッケージの確認してレポートにまとめておいたよ。それじゃあ私は曲作りに戻るね🎼
 
-**実行日時**: 2026/08/15 01:17:28 JST
+**実行日時**: 2026/10/17 04:14:50 JST
 
 ---
 
@@ -10,7 +10,7 @@
 
 ```
 Package      Current  Wanted  Latest  Location                  Depended by
-@types/node   25.9.5  25.9.5  26.2.0  node_modules/@types/node  prsk-card-marker
+@types/node   25.9.9  25.9.9  26.6.5  node_modules/@types/node  prsk-card-marker
 typescript     6.0.3   6.0.3   7.0.2  node_modules/typescript   prsk-card-marker
 ```
 
