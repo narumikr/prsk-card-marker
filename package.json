@@ -19,21 +19,21 @@
   },
   "dependencies": {
     "@naru/untitled-ui-library": "github:Narumikr/Untitled#release/untitled",
-    "modern-screenshot": "^4.6.0",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "react-router-dom": "^7.13.2"
+    "modern-screenshot": "^4.7.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.13",
-    "@tailwindcss/vite": "^4.2.4",
-    "@types/node": "^25.6.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react-swc": "^4.3.0",
+    "@biomejs/biome": "^2.5.15",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^25.9.9",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react-swc": "^4.3.3",
     "husky": "^9.1.7",
-    "tailwindcss": "^4.2.4",
+    "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
-    "vite": "^8.0.3"
+    "vite": "^8.3.4"
   }
 }
